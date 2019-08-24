@@ -1,0 +1,48 @@
+<!-- Common Header -->
+<%- include ../layouts/header.ejs %>
+ 
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+<% } %>
+ 
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>    
+ 
+<table width='80%' border=0>
+ 
+    <tr style='text-align:left; background-color:#CCC'>
+        <th>E_ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Salary</th>
+        <th>Dept</th>
+        <th>Action</th>
+    </tr>
+    <% if (data) { %>
+    <% data.forEach(function(employee){ %>
+        <tr>
+            <td><%= employee.id %></td>
+            <td><%= employee.name %></td>
+            <td><%= employee.age %></td>
+            <td><%= employee.email %></td>
+            <td><%= employee.salary %></td>
+            <td><%= employee.dept %></td>
+            <td>
+                <div style="float:left">
+                    <a href='/employees/edit/<%= employee.id %>'>Edit</a> &nbsp;                            
+                    <form method="post" action="/employees/delete/<%= employee.id %>" style="float:right">
+                        <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
+                        <input type="hidden" name="_method" value="DELETE" />
+                    </form>
+                </div>
+            </td>
+        </tr>
+    <% }) %>
+    <% } %>
+ 
+</table>
+ 
+<!-- Common Footer -->
+<%- include ../layouts/footer.ejs %>
